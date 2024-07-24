@@ -18,8 +18,8 @@ class Database{
             $dsn = "mysql:host=$db_host;dbname=$db_name";
             $this->conn = new PDO($dsn, $db_user, $db_pass);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e){
-            echo 'Connect filed: ' . $e->getMessage();
+        } catch (PDOException $error){
+           require '../views/error.php';
         }
     }
 

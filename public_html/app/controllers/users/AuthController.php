@@ -3,54 +3,91 @@
 //require_once 'app/models/AuthUser.php';
 class AuthController
 {
+    /**
+     * @var AuthUser
+     */
     protected $authModel;
-    public function register()
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->authModel=new AuthUser();
+    }
+
+    /**
+     * @return void
+     */
+    public function register(): void
     {
 
         include 'app/views/user/register.php';
     }
-    private function setAuthModel()
-    {
-        return $this->authModel= new AuthUser();
-    }
+
 
 //https://youtu.be/WJoih6XeqTM?t=3045
-    public function store()
+
+    /**
+     * @return void
+     */
+    public function store(): void
     {
         if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
             $username = trim($_POST['username']);
             $email = trim($_POST['email']);
             $password = trim($_POST['password']);
             $confirm_password = trim($_POST['confirm_password']);
-            $userModel = $this->setAuthModel();
-            if ($userModel->findByEmail($email)){
+            $userModel = $this->authModel;
+            if ($email=$userModel->findByEmail($email)){
                 $this->redirectWithError('register','Данный емаил уже существует');
+                die();
             }
             if ($password !== $confirm_password) {
                 $this->redirectWithError('register','Пароли не совпадают');
+                die();
             }
             $userModel->register($username, $email, $password);
         }
         header("Location: index.php?page=login");
     }
-    private function redirectWithError($page,$message) {
+
+    /**
+     * @param $page
+     * @param $message
+     * @return void
+     */
+    public function redirectWithError($page, $message): void {
         $encodedMessage = urlencode($message);
         header("Location: index.php?page=$page&error=$encodedMessage");
-        exit();
+
     }
-    private function startSession($id,$role){
+
+    /**
+     * @param $id
+     * @param $role
+     * @return void
+     */
+    private function startSession($id, $role):void{
         $_SESSION['user_id'] = $id;
         $_SESSION['user_role'] = $role;
-
     }
 
 //https://youtu.be/WJoih6XeqTM?t=753
-    public function login()
+
+    /**
+     * @return void
+     */
+    public function login(): void
     {
         include 'app/views/user/login.php';
     }
-    public function authenticate(){
-        $authModel = $this->setAuthModel();
+
+    /**
+     * @return void
+     */
+    public function authenticate():void{
+        $authModel = $this->authModel;
 
         if (isset($_POST['email']) && isset($_POST['password'])) {
             $email = trim($_POST['email']);
@@ -58,7 +95,6 @@ class AuthController
             $remember = isset($_POST['remember']) ? $_POST['remember'] : '';
 
             $user = $authModel->findByEmail($email);
-
 
             if ($user) {
                 if (password_verify($password, $user['password'])) {
@@ -73,13 +109,19 @@ class AuthController
                     exit();
                 } else {
                     $this->redirectWithError('login','Неправильный логин или пароль');
+                    die();
                 }
             } else {
                 $this->redirectWithError('login','Неправильный логин или пароль');
+                die();
             }
         }
     }
-    public function logout()
+
+    /**
+     * @return void
+     */
+    public function logout():void
     {
         session_start();
         session_unset();
@@ -96,4 +138,5 @@ class AuthController
 
         header("Location: index.php");
     }
+
 }

@@ -38,7 +38,7 @@ curl_setopt($ch, CURLOPT_HEADER, false);
 $res = curl_exec($ch);
 curl_close($ch);
 $res = json_decode($res, true);
-
+$date = date('m/d/Y h:i:s a', time());
 if(filter_var($client_ip, FILTER_VALIDATE_IP) !== false) {// проверяем значение client_ip соответствует ли оно формату ip адреса
     $city_by_ip = $res['city'];// если да да, берем город и записываем в БД
 } else {
@@ -46,3 +46,4 @@ if(filter_var($client_ip, FILTER_VALIDATE_IP) !== false) {// проверяем 
 }
 $link = mysqli_connect("localhost", "cw92548_crmtest", "ndXBT6CS", "cw92548_crmtest");
 $sql = mysqli_query($link, "INSERT INTO `leads` (`name`, `phone`, `message`, `source`, `utm_source`, `utm_campaign`, `utm_term`, `client_ip`, `city_by_ip`, `city_by_tel`) VALUES ('{$_POST['name']}', '{$phone}', '{$message}', '{$source}', '{$utm_source}', '{$utm_campaign}', '{$utm_term}', '{$client_ip}', '$city_by_ip', '{$city_by_tel}')");
+$sql = mysqli_query($link, "INSERT INTO `applications` (`name`, `phone`,  `date`,`message`, `sourse`) VALUES ('{$_POST['first_last_name']}', '{$phone}','$date', '{$message}', '{$source}')");

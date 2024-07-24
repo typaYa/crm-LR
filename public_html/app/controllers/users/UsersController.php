@@ -3,7 +3,7 @@
 require_once 'app/models/User.php';
 class UsersController
 {
-    public function index()
+    public function index(): void
     {
         $UserModel = new User();
         $users = $UserModel->readAll();
@@ -13,12 +13,12 @@ class UsersController
 
 //https://youtu.be/wPPpQEbFd3w?list=PL7Lf7uq4tiNBe332vuAYzniId5AI6fDSX&t=4352
 // редакция 1-https://youtu.be/C_FfBVffB80?list=PLMB6wLyKp7lXH2UwgDNTbeGlLNFvX1QcV&t=540
-    public function create()
+    public function create(): void
     {
         include 'app/views/user/create.php';
     }
 
-    public function store()
+    public function store(): void
     {
         if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
             $password = $_POST['password'];
@@ -39,14 +39,14 @@ class UsersController
         }
         header("Location: index.php?page=users");
     }
-    public function edit()
+    public function edit(): void
     {
         $userModel = new User();
         $user = $userModel->read($_GET['id']);
 
         include 'app/views/user/edit.php';
     }
-    public function update()
+    public function update(): void
     {
         $userModel = new User();
         $userModel->update($_GET['id'], $_POST);
@@ -54,7 +54,7 @@ class UsersController
         header("Location: index.php?page=users");
 
     }
-    public function delete()
+    public function delete(): void
     {
         $userModel = new User();
         $userModel->delete($_GET['id']);

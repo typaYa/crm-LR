@@ -5,8 +5,6 @@ if($_SERVER['REQUEST_URI'] == '/index.php') {
     header('Location: /');
     exit();
 }
-print_r($_COOKIE);
-print_r($_SESSION['user_role']);
 $title = 'LR-CRM';
 ob_start();
 ?>

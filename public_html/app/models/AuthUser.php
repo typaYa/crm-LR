@@ -73,11 +73,10 @@ class AuthUser{
             $query = "SELECT * FROM users WHERE email = ? LIMIT 1";
             $stmt = $this->db->prepare($query);
             $stmt->execute([$email]);
-            $user = $stmt->fetch (PDO:: FETCH_ASSOC);
-            return $user ? $user: false;
-        } catch (PDOException $e) {
-            return false;
+            return  $stmt->fetch (PDO:: FETCH_ASSOC);
 
+        } catch (PDOException $error) {
+            include '../views/error.php';
         }
     }
 

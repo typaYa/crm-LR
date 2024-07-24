@@ -23,6 +23,10 @@ ob_start();
                 <option value="3" <?php echo $user['role'] == 3 ? 'selected' : ''; ?>>Admin</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Комментарий</label>
+            <input type="text" class="form-control"  name="comment" value="">
+        </div>
         <button type="submit" class="btn btn-primary">Save Changes </button>
     </form>
 

@@ -68,12 +68,38 @@ class Router{
                     $controller->login();
                 }
                 break;
+            case 'applications':
+                if (isset($_GET['action'])){
+                    if ($_GET['action']=='edit' and isset($_GET['id']) and is_numeric($_GET['id'])){
+                        $controller = new \ApplicationsController();
+                        $controller->editApplication($_GET['id']);
+                    }else if($_GET['action']=='update' and isset($_GET['id']) and is_numeric($_GET['id'])){
+                        $controller= new ApplicationsController();
+                        $controller->updateApplication($_GET['id'],$_POST);
+                        }
+                }else{
+                    $controller = new \ApplicationsController();
+                    $controller->allApplications();
+                    break;
+                }
+
+
+           /* case 'editApplication':
+                if (isset($_GET['id']) and is_numeric($_GET['id'])){
+                    $controller = new \ApplicationsController();
+                    $controller->editApplication($_GET['id']);
+                    echo $_GET['id'];
+                }*/
+
+
+                break;
+
 
                 default:
                 http_response_code (404);
-                echo "Page not found!";
+                $error = "Страница не найдена";
+                require 'views/error.php';
                 break;
-
         }
     }
 }
