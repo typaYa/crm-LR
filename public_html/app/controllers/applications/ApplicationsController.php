@@ -38,9 +38,16 @@ class ApplicationsController
     public function search($data)
     {
         $selectedApplicationsForSearch = $this->applications->searchApplication($data);
-
         include 'app/views/apllications/search.php';
-
+    }
+    public function showNumber($number){
+        $selectedInfoForNumber = $this->applications->selectedInfoForNumber($number);
+        include 'app/views/apllications/showNumber.php';
+    }
+    public function showLeadForNumber($number)
+    {
+        $allApplications=$this->applications->showLeadForNumber($number);
+        include 'app/views/apllications/showLeadsForNumber.php';
     }
 
 

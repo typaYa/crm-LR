@@ -97,4 +97,19 @@ class Application
 
 
     }
+    public function selectedInfoForNumber($number)
+    {
+        $query = "SELECT ns.number, ns.status, ns.is_spam, COUNT(*) as lead_count FROM number_status ns JOIN leads l ON l.phone = ns.number WHERE ns.number = $number GROUP BY ns.number, ns.status, ns.is_spam;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+    public function showLeadForNumber($number)
+    {
+        $query = "SELECT `id`,`name`,`phone`,`date`,`message`,`source`,`city_by_ip`,`status` FROM leads where phone = $number ORDER BY id DESC ";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

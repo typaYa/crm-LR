@@ -1,6 +1,6 @@
 
 <?php
-$title = 'Все заявки';
+$title = 'Все заявки по номеру';
 ob_start();
 ?>
 
@@ -56,12 +56,12 @@ ob_start();
         ?><tr class="col"> <?php
         foreach ($application as $key=>$value){
             if ($key=='phone'){
-               ?> <td><a href="index.php?page=applications&action=showNumber&number=<?php echo $application['phone'] ?>"><?php echo $value ?></a></td><?php
+                ?> <td><a href="index.php?page=applications&action=showNumber&number=<?php echo $application['phone'] ?>"><?php echo $value ?></a></td><?php
             }else{
-            ?><td class="col"><?php echo $value ?></td> <?php
+                ?><td class="col"><?php echo $value ?></td> <?php
             }
         }
-       ?>
+        ?>
         <td class="col"><a href="index.php?page=applications&action=edit&id=<?php echo $application['id'] ?>">Редактировать</a></td>
         <td class="col"><a style="color:red" href="index.php?page=deleteApplication&id=<?php echo $application['id'] ?>">Удалить</a></td>
         </tr> <?php

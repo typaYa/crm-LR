@@ -81,7 +81,14 @@ class Router{
                     else if ($_GET['action']=='search' and isset($_GET['submit'])){
                         $controller = new \ApplicationsController();
                         $controller->search($_GET);
-
+                    }
+                    else if($_GET['action']=='showNumber' and isset($_GET['number']) and is_numeric($_GET['number'])){
+                        $controller = new \ApplicationsController();
+                        $controller->showNumber($_GET['number']);
+                    }
+                    else if($_GET['action']=='showApplicationsForNumber' and isset($_GET['number']) and is_numeric($_GET['number'])){
+                        $controller = new \ApplicationsController();
+                        $controller->showLeadForNumber($_GET['number']);
                     }
 
                 }else{
@@ -90,13 +97,6 @@ class Router{
                     break;
                 }
 
-
-           /* case 'editApplication':
-                if (isset($_GET['id']) and is_numeric($_GET['id'])){
-                    $controller = new \ApplicationsController();
-                    $controller->editApplication($_GET['id']);
-                    echo $_GET['id'];
-                }*/
 
 
                 break;
