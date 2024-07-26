@@ -34,6 +34,12 @@ class ApplicationsController
         $application= $this->applications->selectApplicationForID($id);
         $confirm = "<script>alert('Запись изменена')</script>";
         include 'app/views/apllications/editApplication.php';
+    }
+    public function search($data)
+    {
+        $selectedApplicationsForSearch = $this->applications->searchApplication($data);
+
+        include 'app/views/apllications/search.php';
 
     }
 

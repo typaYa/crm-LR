@@ -44,5 +44,4 @@ $res = json_decode($res, true);
 $city_by_ip = $res['city'];
 $link = mysqli_connect("localhost", "cw92548_crmtest", "ndXBT6CS", "cw92548_crmtest");
 $sql = mysqli_query($link, "INSERT INTO `leads` (`name`, `phone`, `message`, `source`, `utm_source`, `utm_campaign`, `utm_term`, `client_ip`, `city_by_ip`) VALUES ('{$_POST['first_last_name']}', '{$phone}', '{$message}', '{$source}', '{$utm_source}', '{$utm_campaign}', '{$utm_term}', '{$client_ip}', '{$city_by_ip}')");
-$sql = mysqli_query($link, "INSERT INTO `applications` (`name`, `phone`,  `date`,`message`, `sourse`) VALUES ('{$_POST['first_last_name']}', '{$phone}','$date', '{$message}', '{$source}')");
 

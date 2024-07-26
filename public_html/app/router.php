@@ -73,10 +73,17 @@ class Router{
                     if ($_GET['action']=='edit' and isset($_GET['id']) and is_numeric($_GET['id'])){
                         $controller = new \ApplicationsController();
                         $controller->editApplication($_GET['id']);
-                    }else if($_GET['action']=='update' and isset($_GET['id']) and is_numeric($_GET['id'])){
+                    }
+                    else if($_GET['action']=='update' and isset($_GET['id']) and is_numeric($_GET['id'])){
                         $controller= new ApplicationsController();
                         $controller->updateApplication($_GET['id'],$_POST);
                         }
+                    else if ($_GET['action']=='search' and isset($_GET['submit'])){
+                        $controller = new \ApplicationsController();
+                        $controller->search($_GET);
+
+                    }
+
                 }else{
                     $controller = new \ApplicationsController();
                     $controller->allApplications();

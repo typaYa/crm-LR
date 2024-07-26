@@ -45,5 +45,4 @@ if(filter_var($client_ip, FILTER_VALIDATE_IP) !== false) {// проверяем 
     $city_by_ip = 'not defined';// если нет пишем не определено
 }
 $link = mysqli_connect("localhost", "cw92548_crmtest", "ndXBT6CS", "cw92548_crmtest");
-$sql = mysqli_query($link, "INSERT INTO `leads` (`name`, `phone`, `message`, `source`, `utm_source`, `utm_campaign`, `utm_term`, `client_ip`, `city_by_ip`, `city_by_tel`) VALUES ('{$_POST['name']}', '{$phone}', '{$message}', '{$source}', '{$utm_source}', '{$utm_campaign}', '{$utm_term}', '{$client_ip}', '$city_by_ip', '{$city_by_tel}')");
-$sql = mysqli_query($link, "INSERT INTO `applications` (`name`, `phone`,  `date`,`message`, `sourse`) VALUES ('{$_POST['first_last_name']}', '{$phone}','$date', '{$message}', '{$source}')");
+$sql = mysqli_query($link, "INSERT INTO `leads` (`name`, `phone`, `message`, `source`, `utm_source`, `utm_campaign`, `utm_term`, `client_ip`, `city_by_ip`, `city_by_tel`,`status`) VALUES ('{$_POST['name']}', '{$phone}', '{$message}', '{$source}', '{$utm_source}', '{$utm_campaign}', '{$utm_term}', '{$client_ip}', '$city_by_ip', '{$city_by_tel}','Не обработано')");

@@ -35,6 +35,18 @@ if (isset($confirm)){
         <label  class="form-label">Город по IP</label>
         <input type="text" class="form-control" id="city_by_ip" name="city_by_ip" value="<?php echo $application['city_by_ip']; ?>" required>
     </div>
+    <div class="mb-3">
+        <label  class="form-label">Статус</label>
+        <select class="form-control" id="status" name="status">
+            <option value="Не обработано" <?php echo $application['status'] == 'Не обработано' ? 'selected' : ''; ?> >Не обработано</option>
+            <option value="Не доступен" <?php echo $application['status'] == 'Не доступен' ? 'selected' : ''; ?> >Не доступен</option>
+            <option value="Спам" <?php echo $application['status'] == 'Спам' ? 'selected' : ''; ?> >Спам</option>
+            <option value="Не берет трубку" <?php echo $application['status'] == 'Не берет трубку' ? 'selected' : ''; ?> >Не берет трубку</option>
+            <option value="Не обращался" <?php echo $application['status'] == 'Не обращался' ? 'selected' : ''; ?> >Не обращался</option>
+            <option value="Не юридический вопрос" <?php echo $application['status'] == 'Не юридический вопрос' ? 'selected' : ''; ?> >Не юридический вопрос</option>
+            <option value="В работе - хороший лид" <?php echo $application['status'] == 'В работе - хороший лид' ? 'selected' : ''; ?> >В работе - хороший лид</option>
+
+        </select></div>
 
     <div class="mb-3">
         <label  class="form-label">Комментарий</label>

@@ -31,4 +31,6 @@ else {
 $date = date('m/d/Y h:i:s a', time());
 $link = mysqli_connect("localhost", "cw92548_crmtest", "ndXBT6CS", "cw92548_crmtest");
 $sql = mysqli_query($link, "INSERT INTO `leads` (`name`, `phone`, `message`, `source`, `utm_source`, `utm_campaign`, `utm_term`) VALUES ('{$name}', '{$phone}', '{$message}', '{$source}', '{$utm_source}', '{$utm_campaign}', '{$utm_term}')");
-$sql = mysqli_query($link, "INSERT INTO `applications` (`name`, `phone`,  `date`,`message`, `sourse`) VALUES ('{$_POST['first_last_name']}', '{$phone}','$date', '{$message}', '{$source}')");
+$sql = mysqli_query($link,"select max(id) as id from leads");
+$id = mysqli_fetch_row($sql)['id'];
+$sql = mysqli_query($link,"insert into lead_status(id_lead,status) values ('{$id}', 'Не обработана')");
