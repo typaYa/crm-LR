@@ -39,7 +39,7 @@ class User{
         }
     public function readAll(){
         try {
-            $stmt = $this->db->query("SELECT * FROM `users`");
+            $stmt = $this->db->query("SELECT u.id,u.username,u.email,u.last_login,r.role_name as role FROM users u join roles r on u.role = r.id");
 
             $users =[];
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -53,6 +53,8 @@ class User{
     }
     public function create($data)
     {
+        echo $_POST['email'];
+        die();
         $username = $data ['username'];
         $email = $data ['email'];
         $password = $data['password'];
@@ -91,6 +93,16 @@ class User{
         }catch (PDOException $error){
                 include '../views/error.php';
             }
+
+    }
+    public  function updateLastLogin($id)
+    {
+       $date = date('Y-m-d H:i:s');
+        $query = "UPDATE users SET last_login = :last_login WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':last_login', $date);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
 
     }
     public function update($id, $data){
@@ -143,6 +155,10 @@ class User{
         } catch (PDOException $error) {
             include '../views/error.php';
         }
+
+    }
+    public function updateUsersCreateHistory($id_admin)
+    {
 
     }
 }

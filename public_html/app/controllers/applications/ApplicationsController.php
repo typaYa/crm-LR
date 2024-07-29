@@ -49,6 +49,17 @@ class ApplicationsController
         $allApplications=$this->applications->showLeadForNumber($number);
         include 'app/views/apllications/showLeadsForNumber.php';
     }
+    public function selectHistoryUpdateApplications()
+    {
+        $selectHistoryUpdateApplications = $this->applications->selectHistoryUpdateApplications();
+        include 'app/views/apllications/showHistoryUpdateApplications.php';
+    }
+    public function searchForHistory($data)
+    {
+        $selectHistoryUpdateApplications = $this->applications->selectHistoryUpdateForData($data);
+        include 'app/views/apllications/showHistoryUpdateApplications.php';
+    }
+
 
 
 }

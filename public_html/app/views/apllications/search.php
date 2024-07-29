@@ -20,16 +20,24 @@ ob_start();
     <div style="display: flex;flex-direction: row">
         <input type="text" name="page" style="display: none" value="applications">
         <input type="text" name="action" style="display: none" value="search">
-        <input name="date" type="date"class="form-control" style="max-width: 200px" <?php if (!empty($_GET['date'])){echo "value ='{$_GET['date']}'";} ?>>
+        <div>
+            <label for="fromDate"></label>Дата от
+            <input name="fromDate" type="date" <?php if (!empty($_GET['fromDate'])){echo "value ='{$_GET['fromDate']}'";}?> class="form-control" style="max-width: 200px">
+        </div>
+        <div>
+            <label for="toDate"></label>Дата по
+            <input name="toDate" <?php if (!empty($_GET['toDate'])){echo "value ='{$_GET['toDate']}'";}?> type="date" class="form-control" style="max-width: 200px">
+        </div>
         <select name="searchForField" style="max-width: 120px" class="form-control" id="role" name="role">
             <option value="0" disabled selected>Поиск по </option>
             <option value="name" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='name'){ echo 'selected';} ?>>ФИО</option>
-            <option value="number" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='number'){ echo 'selected';} ?>>Номеру</option>
-            <option value="city" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='city'){ echo 'selected';} ?>>Городу</option>
+            <option value="phone" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='phone'){ echo 'selected';} ?>>Номеру</option>
+            <option value="city_by_ip" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='city'){ echo 'selected';} ?>>Городу</option>
             <option value="source" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='source'){ echo 'selected';} ?>>Источнику</option>
             <option value="message" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='message'){ echo 'selected';} ?>>Сообщению</option>
         </select>
-        <input class="form-control" name="searchText" type="text" placeholder="Поиск" <?php if (!empty($_GET['searchText'])){echo "value='{$_GET['searchText']}' ";} ?>>
+        <input class="form-control" name="searchText" type="text" placeholder="Поиск" <?php if (!empty($_GET['searchText'])) { echo 'value="' . htmlspecialchars($_GET['searchText'], ENT_QUOTES, 'UTF-8') . '"'; } ?>>
+
         <input class="btn btn-primary" type="submit" name="submit" value="Поиск">
     </div>
 
@@ -44,20 +52,28 @@ ob_start();
         <th scope="col">Сообщение</th>
         <th scope="col">Источник</th>
         <th scope="col">Город</th>
+        <th scope="col">Статус</th>
         <th scope="col">Изменить</th>
-        <th scope="col">Удалить</th>
-
     </tr>
     </thead>
     <tbody>
     <?php foreach ($selectedApplicationsForSearch as $application){
         ?><tr class="col"> <?php
-        foreach ($application as $value){
-            ?><td class="col"><?php echo $value ?></td> <?php
+        foreach ($application as $key=>$value){
+            if ($key=='phone'){
+                ?> <td><a href="index.php?page=applications&action=showNumber&number=<?php echo $application['phone'] ?>"><?php echo $value ?></a></td><?php
+            }else if($key=='status'){
+                ?>
+                <td></td>
+                <td></td>
+                <?php
+            }
+            else{
+                ?><td class="col"><?php echo $value ?></td> <?php
+            }
         }
         ?>
         <td class="col"><a href="index.php?page=applications&action=edit&id=<?php echo $application['id'] ?>">Редактировать</a></td>
-        <td class="col"><a style="color:red" href="index.php?page=deleteApplication&id=<?php echo $application['id'] ?>">Удалить</a></td>
         </tr> <?php
     }
     ?>

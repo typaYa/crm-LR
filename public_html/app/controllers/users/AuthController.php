@@ -36,20 +36,24 @@ class AuthController
         if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
             $username = trim($_POST['username']);
             $email = trim($_POST['email']);
+
             $password = trim($_POST['password']);
             $confirm_password = trim($_POST['confirm_password']);
             $userModel = $this->authModel;
-            if ($email=$userModel->findByEmail($email)){
-                $this->redirectWithError('register','Данный емаил уже существует');
+
+            if ($userModel->findByEmail($email)){
+                $this->redirectWithError('register','Данный логин уже существует');
                 die();
             }
             if ($password !== $confirm_password) {
                 $this->redirectWithError('register','Пароли не совпадают');
                 die();
             }
+
             $userModel->register($username, $email, $password);
+
         }
-        header("Location: index.php?page=login");
+        header("Location: index.php?page=users");
     }
 
     /**
@@ -105,7 +109,10 @@ class AuthController
                         setcookie('user_email', $email, time() + (7 * 24 * 60 * 60), '/');
                     }
 
-                    header("Location: index.php");
+                    $userCon = new User();
+
+                    $userCon->updateLastLogin($user['id']);
+                    header("Location: index.php?page=applications");
                     exit();
                 } else {
                     $this->redirectWithError('login','Неправильный логин или пароль');

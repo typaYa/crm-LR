@@ -44,27 +44,19 @@ class AuthUser{
         try {
             $stmt = $this->db->prepare($query);
             $stmt->execute([$username, $email, password_hash($password, PASSWORD_DEFAULT), $role, $created_at]);
+            $query = "select MAX(id) as id  from users";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            $id = $stmt->fetchAll(\PDO::FETCH_ASSOC)[0]['id'];
+
+            $query = "insert into users_create_history(id_admin,id_users,date_create) values(:id_admin,:id_user,:date_create)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id_admin',$_SESSION['user_id']);
+            $stmt->bindParam(':id_user',$id);
+            $stmt->bindParam(':date_create',$created_at);
+            $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            return false;
-        }
-    }
-    public function login($email, $password) {
-        try{
-            $query = "SELECT * FROM users WHERE email = ? LIMIT 1";
-
-            $stmt = $this->db->prepare($query);
-            $stmt->execute([$email]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($user && password_verify($password, $user['password'])) {
-                return $user;
-            }
-
-            return false;
-        } catch (PDOException $e) {
-            print_r($e);
-            die();
             return false;
         }
     }

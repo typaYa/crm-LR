@@ -17,7 +17,7 @@ if (isset($confirm)){
     </div>
     <div class="mb-3">
         <label  class="form-label">Номер</label>
-        <input type="text" class="form-control" id="email" name="phone" value="<?php echo $application['phone']; ?>" required>
+        <input type="text" class="form-control" id="email" name="phone" value="<?php echo $application['phone']; ?>" readonly>
     </div>
     <div class="mb-3">
         <label class="form-label">Дата</label>
@@ -45,8 +45,8 @@ if (isset($confirm)){
             <option value="Не обращался" <?php echo $application['status'] == 'Не обращался' ? 'selected' : ''; ?> >Не обращался</option>
             <option value="Не юридический вопрос" <?php echo $application['status'] == 'Не юридический вопрос' ? 'selected' : ''; ?> >Не юридический вопрос</option>
             <option value="В работе - хороший лид" <?php echo $application['status'] == 'В работе - хороший лид' ? 'selected' : ''; ?> >В работе - хороший лид</option>
-
-        </select></div>
+        </select>
+    </div>
 
     <div class="mb-3">
         <label  class="form-label">Комментарий</label>

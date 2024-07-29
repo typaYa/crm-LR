@@ -20,14 +20,22 @@ ob_start();
     <div style="display: flex;flex-direction: row">
         <input type="text" name="page" style="display: none" value="applications">
         <input type="text" name="action" style="display: none" value="search">
-        <input name="date" type="date"class="form-control" style="max-width: 200px">
+        <div>
+            <label for="fromDate"></label>Дата от
+            <input name="fromDate" type="date" value="<?php echo date('Y-m-d')?>" class="form-control" style="max-width: 200px">
+        </div>
+        <div>
+            <label for="toDate"></label>Дата по
+            <input name="toDate" value="<?php echo date('Y-m-d')?>" type="date" class="form-control" style="max-width: 200px">
+        </div>
+
         <select name="searchForField" style="max-width: 120px" class="form-control" id="role" name="role">
             <option value="0" disabled selected>Поиск по </option>
-            <option value="name">ФИО</option>
-            <option value="number">Номеру</option>
-            <option value="city">Городу</option>
-            <option value="source">Источнику</option>
-            <option value="message">Сообщению</option>
+            <option value="name" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='name'){ echo 'selected';} ?>>ФИО</option>
+            <option value="phone" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='number'){ echo 'selected';} ?>>Номеру</option>
+            <option value="city_by_ip" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='city'){ echo 'selected';} ?>>Городу</option>
+            <option value="source" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='source'){ echo 'selected';} ?>>Источнику</option>
+            <option value="message" <?php if (!empty($_GET['searchForField']) and $_GET['searchForField'] =='message'){ echo 'selected';} ?>>Сообщению</option>
         </select>
         <input class="form-control" name="searchText" type="text" placeholder="Поиск">
         <input class="btn btn-primary" type="submit" name="submit" value="Поиск">

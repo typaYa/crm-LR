@@ -28,8 +28,8 @@ class Application
     public function searchApplication($search)
     {
         $query = "SELECT `id`,`name`,`phone`,`date`,`message`,`source`,`city_by_ip`,`status` FROM leads where ";
-        if (isset($search['date']) and !empty($search['date'])) {
-            $query.= " DATE(date) = '{$search['date']}' and";
+        if (isset($search['fromDate']) and isset($search['toDate'])) {
+            $query.= " DATE(date) between '{$search['fromDate']}' and '{$search['toDate']}' and";
         }
         if (isset($search['searchForField']) and !empty($search['searchForField']) and !empty($search['searchText'])) {
             $query.= " {$search['searchForField']} like '%{$search['searchText']}%' ";
@@ -37,7 +37,7 @@ class Application
         if (substr($query, -3) === 'and') {
             $query = substr($query, 0, -3);
         }
-
+        $query.='order by id desc';
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
 
@@ -110,6 +110,35 @@ class Application
         $query = "SELECT `id`,`name`,`phone`,`date`,`message`,`source`,`city_by_ip`,`status` FROM leads where phone = $number ORDER BY id DESC ";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function selectHistoryUpdateApplications()
+    {
+        $query = "SELECT * FROM history_updates_applications order by id_update desc";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function selectHistoryUpdateForData($search)
+    {
+        $query = "SELECT * FROM history_updates_applications where ";
+        if (isset($search['fromDate']) and isset($search['toDate'])) {
+            $query.= " DATE(date_updates) between '{$search['fromDate']}' and '{$search['toDate']}' and";
+        }
+        if (isset($search['searchForField']) and !empty($search['searchForField']) and !empty($search['searchText'])) {
+            if ($search['searchForField']=='id_update'){
+                $query.= " {$search['searchForField']} = '{$search['searchText']}' ";
+            }else{
+                $query.= " {$search['searchForField']} like '%{$search['searchText']}%' ";
+            }
+        }
+        if (substr($query, -3) === 'and') {
+            $query = substr($query, 0, -3);
+        }
+        $query.='order by id_update desc';
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

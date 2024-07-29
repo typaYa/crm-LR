@@ -28,12 +28,13 @@ class UsersController
                 echo "Пароль не совпадает";
                 return;
             }
+
             $userModel = new User();
             $data = [
                 'username' => $_POST['username'],
                 'email' => $_POST['email'],
                 'password' => $password,
-                'role' => 1, // по умолчанию id самого простого пользователя, если что то пошло не так нужно сверить id в таблице roles
+                'role' => 0, // по умолчанию id самого простого пользователя, если что то пошло не так нужно сверить id в таблице roles
             ];
             $userModel->create($data);
         }

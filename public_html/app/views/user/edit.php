@@ -7,27 +7,27 @@ ob_start();
     <h1>Редактирование пользователя</h1>
     <form method="POST" action="index.php?page=users&action=update&id=<?php echo $user['id']; ?>">
         <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
+            <label for="username" class="form-label">Имя пользователя</label>
             <input type="text" class="form-control" id="username" name="username" value="<?php echo $user['username']; ?>" required>
         </div>
         <div class="mb-3">
-            <label for="email" class="form-label"> Email address</label>
+            <label for="email" class="form-label">Логин</label>
             <input type="email" class="form-control" id="email" name="email" value="<?php echo $user['email']; ?>" required>
         </div>
         <div class="mb-3">
-            <label for="role" class="form-label">Role</label>
+            <label for="role" class="form-label">Роль</label>
             <select class="form-control" id="role" name="role">
-                <option value="0" <?php echo $user['role'] == 0 ? 'selected' : ''; ?>>User</option>
-                <option value="1" <?php echo $user['role'] == 1 ? 'selected' : ''; ?>>Content Creator</option>
-                <option value="2" <?php echo $user['role'] == 2 ? 'selected' : ''; ?>>Editor</option>
-                <option value="3" <?php echo $user['role'] == 3 ? 'selected' : ''; ?>>Admin</option>
+                <option value="0" <?php echo $user['role'] == 0 ? 'selected' : ''; ?>>Пользователь</option>
+                <option value="1" <?php echo $user['role'] == 1 ? 'selected' : ''; ?>>Контентмейкер</option>
+                <option value="2" <?php echo $user['role'] == 2 ? 'selected' : ''; ?>>Редактор</option>
+                <option value="3" <?php echo $user['role'] == 3 ? 'selected' : ''; ?>>АДМИН</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Комментарий</label>
             <input type="text" class="form-control"  name="comment" value="">
         </div>
-        <button type="submit" class="btn btn-primary">Save Changes </button>
+        <button type="submit" class="btn btn-primary">Сохранить изменения </button>
     </form>
 
 
