@@ -17,10 +17,10 @@ ob_start();
         <div class="mb-3">
             <label for="role" class="form-label">Роль</label>
             <select class="form-control" id="role" name="role">
-                <option value="0" <?php echo $user['role'] == 0 ? 'selected' : ''; ?>>Пользователь</option>
-                <option value="1" <?php echo $user['role'] == 1 ? 'selected' : ''; ?>>Контентмейкер</option>
-                <option value="2" <?php echo $user['role'] == 2 ? 'selected' : ''; ?>>Редактор</option>
-                <option value="3" <?php echo $user['role'] == 3 ? 'selected' : ''; ?>>АДМИН</option>
+                <option value="1" <?php echo $user['role'] == 1 ? 'selected' : ''; ?>>Пользователь</option>
+                <option value="2" <?php echo $user['role'] == 2 ? 'selected' : ''; ?>>Контентмейкер</option>
+                <option value="3" <?php echo $user['role'] == 3 ? 'selected' : ''; ?>>Редактор</option>
+                <option value="4" <?php echo $user['role'] == 4 ? 'selected' : ''; ?>>АДМИН</option>
             </select>
         </div>
         <div class="mb-3">

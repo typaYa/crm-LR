@@ -108,15 +108,24 @@ class Router{
                         } else if ($_GET['action'] == 'searchForHistory' and isset($_GET['submit'])) {
                             $controller = new ApplicationsController();
                             $controller->searchForHistory($_GET);
-                        } else {
-                            $controller = new \ApplicationsController();
-                            $controller->allApplications();
-                            break;
                         }
+                        else if($_GET['action'] == 'sendOnCallCenter' and isset($_GET['submit'])){
+                            $controller = new ApplicationsController();
+                            $controller->sendOnCallCenter($_GET);
+                        }else if ($_GET['action']=='sendOnCallCenterUser' and isset($_GET['submit'])){
+                            $controller = new ApplicationsController();
+                            $controller->sendOnCallCenterUser($_GET);
+                        }
+                         else {
+                        $controller = new \ApplicationsController();
+                        $controller->allApplications();
+                        break;
+                    }
 
                     } else {
                         $controller = new \ApplicationsController();
                         $controller->allApplications();
+
                         break;
                     }
 

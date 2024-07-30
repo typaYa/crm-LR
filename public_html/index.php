@@ -13,13 +13,8 @@ require_once 'app/controllers/applications/ApplicationsController.php';
 require_once 'app/controllers/HomeController.php';
 
 require_once 'app/router.php';
-print_r($_COOKIE);
-echo '<br>';
-print_r('Роль: '.$_SESSION['user_role']);
-echo '<br>';
-print_r('Id: '.$_SESSION['user_id']);
-echo '<br>';
 
+print_r($_SESSION);
     $router = new Router();
     $router->run();
 

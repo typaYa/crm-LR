@@ -17,6 +17,25 @@ ob_start();
                         <input type="text" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb—3">
+                    <label for="email" class="form-label">Коллцентер</label>
+                    <select name="call_center" class="form-control" id="role" >
+                        <option value="0" disabled selected>Выберете коллцентер </option>
+                        <option value="КЦ1">КЦ1</option>
+                        <option value="КЦ2">КЦ2</option>
+                        <option value="КЦ3">КЦ3</option>
+                        <option value="КЦ4">КЦ4</option>
+                        <option value="КЦ5">КЦ5</option>
+                    </select>
+                </div>
+                <div class="mb—3">
+                    <label for="email" class="form-label">Коллцентер</label>
+                    <select name="call_center_role" class="form-control" id="role" >
+                        <option value="0" disabled selected>Выберете должность </option>
+                        <option value="1">Обзвоньщик</option>
+                        <option value="2">Разделятор</option>
+                    </select>
+                </div>
+                <div class="mb—3">
                     <label for="password" class="form-1abe1">Пароль</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>

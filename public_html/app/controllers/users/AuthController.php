@@ -33,11 +33,12 @@ class AuthController
      */
     public function store(): void
     {
-        if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
+        if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['call_center']) && is_scalar($_POST['call_center_role'])) {
             $username = trim($_POST['username']);
             $email = trim($_POST['email']);
-
+            $call_center = trim($_POST['call_center']);
             $password = trim($_POST['password']);
+            $role = trim($_POST['call_center_role']);
             $confirm_password = trim($_POST['confirm_password']);
             $userModel = $this->authModel;
 
@@ -50,7 +51,7 @@ class AuthController
                 die();
             }
 
-            $userModel->register($username, $email, $password);
+            $userModel->register($username, $email, $password,$call_center,$role);
 
         }
         header("Location: index.php?page=users");
@@ -72,11 +73,28 @@ class AuthController
      * @param $role
      * @return void
      */
-    private function startSession($id, $role):void{
+    private function startSession($id, $role,$call_center):void{
         $_SESSION['user_id'] = $id;
         $_SESSION['user_role'] = $role;
+        $_SESSION['call_center'] = $call_center;
     }
-
+    private function startForJWT($id,$role){
+        require 'app/core.php';
+        $token =[
+            'iss'=>$iss,
+            'aud'=>$aud,
+            'nbf'=>$nbf,
+            'iat'=>$iat,
+            'data'=>[
+                "id"=>$id,
+                "role"=>$role,
+            ],
+        ];
+        $jwt = json_encode($token);
+        setCookie("jwt", $jwt, 1);
+        print_r($jwt);
+        die();
+    }
 //https://youtu.be/WJoih6XeqTM?t=753
 
     /**
@@ -103,7 +121,7 @@ class AuthController
             if ($user) {
                 if (password_verify($password, $user['password'])) {
 
-                    $this->startSession($user['id'],$user['role']);
+                    $this->startSession($user['id'],$user['role'],$user['call_center']);
 
                     if ($remember === 'on') {
                         setcookie('user_email', $email, time() + (7 * 24 * 60 * 60), '/');

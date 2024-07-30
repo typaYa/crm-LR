@@ -18,7 +18,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?page=applications">Обращения</a>
                     </li>
-                    <?php if ($_SESSION['user_role']==3){
+                    <?php if ($_SESSION['user_role']>=3){
                         ?><li class="nav-item">
                             <a class="nav-link" href="index.php?page=applications&action=showHistoryUpdateApplications">История изменения обращений</a>
                         </li>

@@ -17,9 +17,22 @@ class ApplicationsController
     }
     public function allApplications()
     {
+        if ($_SESSION['user_role']==2){
+            $allApplications=$this->applications->selectAllApplicationForCallCenter($_SESSION['call_center']);
+            $selectAllUserForCallCenter = $this->applications->selectAllUserForCallCenter($_SESSION['call_center']);
 
-        $allApplications = $this->applications->selectAllApplication();
-        include 'app/views/apllications/index.php';
+            include 'app/views/apllications/showForCallCenter.php';
+        }else if($_SESSION['user_role']==1){
+            $allApplications=$this->applications->selectAllApplicationForCallCenterUser($_SESSION['call_center'],$_SESSION['user_id']);
+            include 'app/views/apllications/showForCallCenterUser.php';
+        }
+        else{
+            $data = $this->applications->selectAllApplication();
+            $allApplications = $data[0];
+            $pagination = $data[1];
+            include 'app/views/apllications/index.php';
+        }
+
 
     }
 
@@ -59,6 +72,18 @@ class ApplicationsController
         $selectHistoryUpdateApplications = $this->applications->selectHistoryUpdateForData($data);
         include 'app/views/apllications/showHistoryUpdateApplications.php';
     }
+    public function sendOnCallCenter($data)
+    {
+        $this->applications->sendOnCallCenter($data);
+        header('Location:index.php?page=applications');
+    }
+
+    public function sendOnCallCenterUser($data)
+    {
+        $this->applications->sendOnCallCenterUser($data);
+        header('Location:index.php?page=applications');
+    }
+
 
 
 

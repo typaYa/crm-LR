@@ -37,13 +37,12 @@ class AuthUser{
             return false;
         }
     }
-    public function register($username, $email, $password) {
+    public function register($username, $email, $password,$call_center,$role) {
         $created_at = date('Y-m-d H:i:s');
-        $role = 1;
-        $query = "INSERT INTO users (username, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO users (username, email, password, role, created_at,call_center) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             $stmt = $this->db->prepare($query);
-            $stmt->execute([$username, $email, password_hash($password, PASSWORD_DEFAULT), $role, $created_at]);
+            $stmt->execute([$username, $email, password_hash($password, PASSWORD_DEFAULT), $role, $created_at,$call_center]);
             $query = "select MAX(id) as id  from users";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
